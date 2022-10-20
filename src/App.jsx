@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import Header from './Header';
+import AddItem from './AddItem';
 import ItemList from './ItemList';
 import Footer from './Footer';
 
@@ -23,6 +24,15 @@ const App = () => {
         }
     ]);
 
+    const [newItem, setNewItem] = useState('')
+
+    const addItem = (item) => {
+        const id = items.length ? items[items.length - 1].id + 1 : 1;
+        const myNewItem = { id, checked: false, item };
+        const listItems = [...items, myNewItem];
+        setItems(listItems);
+    }
+
     const handleCheck = (id) => {
         const listItems = items.map((item) => {
             return item.id === id
@@ -39,9 +49,21 @@ const App = () => {
         setItems(listItems);
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!newItem) return;
+        addItem(newItem);
+        setNewItem('');
+    }
+
     return (
         <div className="App">
             <Header />
+            <AddItem
+                newItem={newItem}
+                setNewItem={setNewItem}
+                handleSubmit={handleSubmit}
+            />
             <ItemList
                 items={items}
                 handleCheck={handleCheck}
