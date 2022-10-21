@@ -2,12 +2,14 @@ import React from 'react'
 import { useState } from 'react';
 import Header from './Header';
 import AddItem from './AddItem';
+import SearchItem from './SearchItem';
 import ItemList from './ItemList';
 import Footer from './Footer';
 
 const App = () => {
     const [items, setItems] = useState(JSON.parse(localStorage.getItem('todo-list')) ?? []);
     const [newItem, setNewItem] = useState('')
+    const [search, setSearch] = useState('')
 
     const setAndSaveItems = (newItems) => {
         setItems(newItems);
@@ -52,8 +54,12 @@ const App = () => {
                 setNewItem={setNewItem}
                 handleSubmit={handleSubmit}
             />
+            <SearchItem
+                search={search}
+                setSearch={setSearch}
+            />
             <ItemList
-                items={items}
+                items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
                 handleCheck={handleCheck}
                 handleDelete={handleDelete}
             />
