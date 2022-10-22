@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
@@ -11,16 +11,15 @@ const App = () => {
     const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
 
-    const setAndSaveItems = (newItems) => {
-        setItems(newItems);
-        localStorage.setItem('todo-list', JSON.stringify(newItems));
-    }
+    useEffect(() => {
+        localStorage.setItem('todo-list', JSON.stringify(items));
+    }, [items])
 
     const addItem = (item) => {
         const id = items.length ? items[items.length - 1].id + 1 : 1;
         const myNewItem = { id, checked: false, item };
         const listItems = [...items, myNewItem];
-        setAndSaveItems(listItems);
+        setItems(listItems);
     }
 
     const handleCheck = (id) => {
@@ -29,14 +28,14 @@ const App = () => {
                 ? { ...item, checked: !item.checked }
                 : item
         });
-        setAndSaveItems(listItems);
+        setItems(listItems);
     }
 
     const handleDelete = (id) => {
         const listItems = items.filter((item) => {
             return item.id !== id
         });
-        setAndSaveItems(listItems);
+        setItems(listItems);
     }
 
     const handleSubmit = (e) => {
