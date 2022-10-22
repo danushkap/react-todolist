@@ -7,7 +7,7 @@ import ItemList from './ItemList';
 import Footer from './Footer';
 
 const App = () => {
-    const [items, setItems] = useState(JSON.parse(localStorage.getItem('todo-list')) ?? []);
+    const [items, setItems] = useState(JSON.parse(localStorage.getItem('todo-list')) || []);
     const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
 
