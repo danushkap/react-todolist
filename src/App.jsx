@@ -7,13 +7,9 @@ import ItemList from './ItemList';
 import Footer from './Footer';
 
 const App = () => {
-    const [items, setItems] = useState(JSON.parse(localStorage.getItem('todo-list')) || []);
+    const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
-
-    useEffect(() => {
-        localStorage.setItem('todo-list', JSON.stringify(items));
-    }, [items])
 
     const addItem = (item) => {
         const id = items.length ? items[items.length - 1].id + 1 : 1;
