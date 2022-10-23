@@ -13,6 +13,7 @@ const App = () => {
     const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
     const [apiError, setApiError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const getItems = async () => {
@@ -24,6 +25,9 @@ const App = () => {
                 setApiError(null)
             } catch (err) {
                 setApiError(err)
+            }
+            finally {
+                setIsLoading(false)
             }
         }
         getItems();
@@ -72,8 +76,9 @@ const App = () => {
                     search={search}
                     setSearch={setSearch}
                 />
+                {isLoading && <p>Loading Items...</p>}
                 {apiError && <p style={{ color: 'red' }}>{`Error: ${apiError.message}`}</p>}
-                {!apiError &&
+                {!apiError && !isLoading &&
                     <ItemList
                         items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
                         handleCheck={handleCheck}
