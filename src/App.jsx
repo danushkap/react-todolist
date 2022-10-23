@@ -76,11 +76,16 @@ const App = () => {
         if (err) setApiError(err);
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         const listItems = items.filter((item) => {
             return item.id !== id
         });
         setItems(listItems);
+
+        const apiOptions = { method: 'DELETE' };
+        const reqUrl = `${API_URL}/${id}`;
+        const [_, err] = await apiRequest(reqUrl, apiOptions);
+        if (err) setApiError(err);
     }
 
     const handleSubmit = (e) => {
