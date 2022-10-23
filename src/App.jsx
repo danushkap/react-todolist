@@ -55,13 +55,25 @@ const App = () => {
         if (err) setApiError(err);
     }
 
-    const handleCheck = (id) => {
+    const handleCheck = async (id) => {
         const listItems = items.map((item) => {
             return item.id === id
                 ? { ...item, checked: !item.checked }
                 : item
         });
         setItems(listItems);
+
+        const myItem = listItems.filter((item) => item.id === id)[0];
+        const apiOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ checked: myItem.checked })
+        };
+        const reqUrl = `${API_URL}/${id}`;
+        const [_, err] = await apiRequest(reqUrl, apiOptions);
+        if (err) setApiError(err);
     }
 
     const handleDelete = (id) => {
