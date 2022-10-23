@@ -7,9 +7,27 @@ import ItemList from './ItemList';
 import Footer from './Footer';
 
 const App = () => {
+    const API_URL = 'http://localhost:3500/items'
+
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
+    const [apiError, setApiError] = useState(null)
+
+    useEffect(() => {
+        const getItems = async () => {
+            try {
+                const response = await fetch(API_URL)
+                if (!response.ok) throw Error('Did not receive expected data')
+                const listItems = await response.json()
+                setItems(listItems)
+                setApiError(null)
+            } catch (err) {
+                setApiError(err)
+            }
+        }
+        getItems();
+    }, [])
 
     const addItem = (item) => {
         const id = items.length ? items[items.length - 1].id + 1 : 1;
