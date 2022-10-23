@@ -5,6 +5,7 @@ import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
 import Footer from './Footer';
+import apiRequest from './apiRequest';
 
 const App = () => {
     const API_URL = 'http://localhost:3500/items'
@@ -17,16 +18,20 @@ const App = () => {
 
     useEffect(() => {
         const getItems = async () => {
-            try {
-                const response = await fetch(API_URL)
-                if (!response.ok) throw Error('Did not receive expected data')
+            const apiOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            const [response, err] = await apiRequest(API_URL, apiOptions)
+            if (err) {
+                setApiError(err)
+            }
+            else {
                 const listItems = await response.json()
                 setItems(listItems)
                 setApiError(null)
-            } catch (err) {
-                setApiError(err)
-            }
-            finally {
                 setIsLoading(false)
             }
         }
