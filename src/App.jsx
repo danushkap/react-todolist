@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './Layout';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
@@ -94,6 +96,31 @@ const App = () => {
     }
 
     return (
+        <Routes>
+            <Route path='/' element={<Layout length={items.length} />}>
+                <Route index element={
+                    <main>
+                        <AddItem
+                            newItem={newItem}
+                            setNewItem={setNewItem}
+                            handleSubmit={handleSubmit}
+                        />
+                        <SearchItem
+                            search={search}
+                            setSearch={setSearch}
+                        />
+                        {isLoading && <p>Loading Items...</p>}
+                        {apiError && <p style={{ color: 'red' }}>{`Error: ${apiError.message}`}</p>}
+                        {!apiError && !isLoading &&
+                            <ItemList
+                                items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
+                                handleCheck={handleCheck}
+                                handleDelete={handleDelete}
+                            />}
+                    </main>}
+                />
+            </Route>
+        </Routes>
     )
 }
 
