@@ -7,6 +7,7 @@ import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
 import Footer from './Footer';
+import About from './About';
 import apiRequest from './apiRequest';
 
 const App = () => {
@@ -123,6 +124,7 @@ const App = () => {
                             />}
                     </main>
                 </Route>
+                <Route path='/about' component={About} />
             </Switch>
             <Footer length={items.length} />
         </div>
