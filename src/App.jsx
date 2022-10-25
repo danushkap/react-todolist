@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
+import Nav from './Nav';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
@@ -99,6 +100,7 @@ const App = () => {
     return (
         <div className="App">
             <Header />
+            <Nav />
             <Switch>
                 <Route exact path='/'>
                     <main>
