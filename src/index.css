@@ -17,6 +17,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .App {
   display: flex;
   flex-direction: column;
