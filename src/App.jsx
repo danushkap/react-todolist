@@ -8,6 +8,7 @@ import SearchItem from './SearchItem';
 import ItemList from './ItemList';
 import Footer from './Footer';
 import About from './About';
+import EditItem from './EditItem';
 import Missing from './Missing';
 import apiRequest from './apiRequest';
 
@@ -124,6 +125,10 @@ const App = () => {
                                 handleDelete={handleDelete}
                             />}
                     </main>
+                </Route>
+                <Route path='/edit/:id(\d+)'>
+                    <EditItem
+                        handleDelete={handleDelete} />
                 </Route>
                 <Route path='/about' component={About} />
                 <Route path='*' component={Missing} />
