@@ -1,10 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import Header from './Header';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
-import Footer from './Footer';
 import apiRequest from './apiRequest';
 
 const App = () => {
@@ -96,8 +94,6 @@ const App = () => {
     }
 
     return (
-        <div className="App">
-            <Header />
             <main>
                 <AddItem
                     newItem={newItem}
@@ -117,8 +113,6 @@ const App = () => {
                         handleDelete={handleDelete}
                     />}
             </main>
-            <Footer length={items.length} />
-        </div>
     )
 }
 
