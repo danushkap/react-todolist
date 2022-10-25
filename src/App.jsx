@@ -94,25 +94,6 @@ const App = () => {
     }
 
     return (
-            <main>
-                <AddItem
-                    newItem={newItem}
-                    setNewItem={setNewItem}
-                    handleSubmit={handleSubmit}
-                />
-                <SearchItem
-                    search={search}
-                    setSearch={setSearch}
-                />
-                {isLoading && <p>Loading Items...</p>}
-                {apiError && <p style={{ color: 'red' }}>{`Error: ${apiError.message}`}</p>}
-                {!apiError && !isLoading &&
-                    <ItemList
-                        items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
-                        handleCheck={handleCheck}
-                        handleDelete={handleDelete}
-                    />}
-            </main>
     )
 }
 
