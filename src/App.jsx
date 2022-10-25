@@ -5,6 +5,7 @@ import Layout from './Layout';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
+import About from './About';
 import apiRequest from './apiRequest';
 
 const App = () => {
@@ -119,6 +120,7 @@ const App = () => {
                             />}
                     </main>}
                 />
+                <Route path="about" element={<About />} />
             </Route>
         </Routes>
     )
