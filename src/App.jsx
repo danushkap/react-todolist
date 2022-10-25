@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
@@ -98,25 +99,29 @@ const App = () => {
     return (
         <div className="App">
             <Header />
-            <main>
-                <AddItem
-                    newItem={newItem}
-                    setNewItem={setNewItem}
-                    handleSubmit={handleSubmit}
-                />
-                <SearchItem
-                    search={search}
-                    setSearch={setSearch}
-                />
-                {isLoading && <p>Loading Items...</p>}
-                {apiError && <p style={{ color: 'red' }}>{`Error: ${apiError.message}`}</p>}
-                {!apiError && !isLoading &&
-                    <ItemList
-                        items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
-                        handleCheck={handleCheck}
-                        handleDelete={handleDelete}
-                    />}
-            </main>
+            <Switch>
+                <Route exact path='/'>
+                    <main>
+                        <AddItem
+                            newItem={newItem}
+                            setNewItem={setNewItem}
+                            handleSubmit={handleSubmit}
+                        />
+                        <SearchItem
+                            search={search}
+                            setSearch={setSearch}
+                        />
+                        {isLoading && <p>Loading Items...</p>}
+                        {apiError && <p style={{ color: 'red' }}>{`Error: ${apiError.message}`}</p>}
+                        {!apiError && !isLoading &&
+                            <ItemList
+                                items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
+                                handleCheck={handleCheck}
+                                handleDelete={handleDelete}
+                            />}
+                    </main>
+                </Route>
+            </Switch>
             <Footer length={items.length} />
         </div>
     )
