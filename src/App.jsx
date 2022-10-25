@@ -5,6 +5,7 @@ import Layout from './Layout';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
+import EditItem from './EditItem';
 import About from './About';
 import Missing from './Missing';
 import apiRequest from './apiRequest';
@@ -121,6 +122,7 @@ const App = () => {
                             />}
                     </main>}
                 />
+                <Route path='edit/:id' element={<EditItem handleDelete={handleDelete} />} />
                 <Route path="about" element={<About />} />
                 <Route path="*" element={<Missing />} />
             </Route>
