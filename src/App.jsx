@@ -54,6 +54,24 @@ const App = () => {
     }
 
     const handleCheck = async (id) => {
+        const listItems = items.map((item) => {
+            return item.id === id
+                ? { ...item, checked: !item.checked }
+                : item
+        });
+        const myItem = listItems.filter((item) => item.id === id)[0];
+
+        setIsLoading(true)
+        try {
+            const _ = await apiClient.patch(`/items/${id}`, myItem);
+            setItems(listItems)
+            setApiError(null)
+        } catch (err) {
+            setApiError(`Error: ${err.message}`)
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
 
     const handleDelete = async (id) => {
