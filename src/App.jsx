@@ -75,6 +75,21 @@ const App = () => {
     }
 
     const handleDelete = async (id) => {
+        const listItems = items.filter((item) => {
+            return item.id !== id
+        });
+
+        setIsLoading(true)
+        try {
+            const _ = await apiClient.delete(`/items/${id}`);
+            setItems(listItems)
+            setApiError(null)
+        } catch (err) {
+            setApiError(`Error: ${err.message}`)
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
 
     const handleSubmit = (e) => {
