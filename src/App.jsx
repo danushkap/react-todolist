@@ -8,6 +8,7 @@ import ItemList from './ItemList';
 import EditItem from './EditItem';
 import About from './About';
 import Missing from './Missing';
+import apiClient from './api/apiClient';
 
 const App = () => {
 
@@ -19,6 +20,17 @@ const App = () => {
 
     useEffect(() => {
         const getItems = async () => {
+            setIsLoading(true)
+            try {
+                const response = await apiClient.get('/items');
+                setItems(response.data)
+                setApiError(null)
+            } catch (err) {
+                setApiError(`Error: ${err.message}`)
+            }
+            finally {
+                setIsLoading(false)
+            }
         }
         getItems();
     }, [])
