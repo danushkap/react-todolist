@@ -36,6 +36,21 @@ const App = () => {
     }, [])
 
     const addItem = async (item) => {
+        const id = items.length ? items[items.length - 1].id + 1 : 1;
+        const myNewItem = { id, checked: false, item };
+
+        setIsLoading(true)
+        try {
+            const response = await apiClient.post('/items', myNewItem);
+            const listItems = [...items, response.data];
+            setItems(listItems)
+            setApiError(null)
+        } catch (err) {
+            setApiError(`Error: ${err.message}`)
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
 
     const handleCheck = async (id) => {
