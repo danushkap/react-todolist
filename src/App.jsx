@@ -13,7 +13,6 @@ import apiClient from './api/apiClient';
 const App = () => {
 
     const [items, setItems] = useState([]);
-    const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
     const [apiError, setApiError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -35,45 +34,6 @@ const App = () => {
         getItems();
     }, [])
 
-    const addItem = async (item) => {
-        const id = items.length ? items[items.length - 1].id + 1 : 1;
-        const myNewItem = { id, checked: false, item };
-
-        setIsLoading(true)
-        try {
-            const response = await apiClient.post('/items', myNewItem);
-            const listItems = [...items, response.data];
-            setItems(listItems)
-            setApiError(null)
-        } catch (err) {
-            setApiError(`Error: ${err.message}`)
-        }
-        finally {
-            setIsLoading(false)
-        }
-    }
-
-    const handleCheck = async (id) => {
-        const listItems = items.map((item) => {
-            return item.id === id
-                ? { ...item, checked: !item.checked }
-                : item
-        });
-        const myItem = listItems.filter((item) => item.id === id)[0];
-
-        setIsLoading(true)
-        try {
-            const _ = await apiClient.patch(`/items/${id}`, myItem);
-            setItems(listItems)
-            setApiError(null)
-        } catch (err) {
-            setApiError(`Error: ${err.message}`)
-        }
-        finally {
-            setIsLoading(false)
-        }
-    }
-
     const handleDelete = async (id) => {
         const listItems = items.filter((item) => {
             return item.id !== id
@@ -92,22 +52,16 @@ const App = () => {
         }
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!newItem) return;
-        addItem(newItem);
-        setNewItem('');
-    }
-
     return (
         <Routes>
             <Route path='/' element={<Layout length={items.length} />}>
                 <Route index element={
                     <main>
                         <AddItem
-                            newItem={newItem}
-                            setNewItem={setNewItem}
-                            handleSubmit={handleSubmit}
+                            items={items}
+                            setItems={setItems}
+                            setIsLoading={setIsLoading}
+                            setApiError={setApiError}
                         />
                         <SearchItem
                             search={search}
@@ -118,7 +72,9 @@ const App = () => {
                         {!apiError && !isLoading &&
                             <ItemList
                                 items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
-                                handleCheck={handleCheck}
+                                setItems={setItems}
+                                setIsLoading={setIsLoading}
+                                setApiError={setApiError}
                                 handleDelete={handleDelete}
                             />}
                     </main>}
