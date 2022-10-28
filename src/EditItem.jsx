@@ -1,13 +1,10 @@
 import React from 'react'
-import { useContext } from "react";
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
-import ItemContext from './context/DataProvider'
 
 const EditItem = () => {
     const { id } = useParams();
     const item = useLocation().state?.item
     const navigate = useNavigate()
-    const { deleteItem } = useContext(ItemContext);
 
     const handleDelete = (id) => {
         deleteItem(id)

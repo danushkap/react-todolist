@@ -1,14 +1,12 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
 import apiClient from './api/apiClient';
-import ItemContext from './context/DataProvider'
 
 function Home() {
     const [search, setSearch] = useState('')
-    const { items, setItems, isLoading, setIsLoading, apiError, setApiError } = useContext(ItemContext);
 
     useEffect(() => {
         const getItems = async () => {
