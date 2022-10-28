@@ -1,9 +1,13 @@
 import React from 'react'
+import { useContext } from "react";
+import ItemContext from './context/DataProvider'
 
-const Footer = ({ length }) => {
+const Footer = () => {
+    const { items } = useContext(ItemContext);
+
     return (
         <footer>
-            <p>{length} List {length === 1 ? "item" : "items"}</p>
+            <p>{items.length} List {items.length === 1 ? "item" : "items"}</p>
         </footer>
     )
 }

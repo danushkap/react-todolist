@@ -1,11 +1,13 @@
 import React from 'react'
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import apiClient from './api/apiClient';
+import ItemContext from './context/DataProvider'
 
-const AddItem = ({ items, setItems, setIsLoading, setApiError }) => {
+const AddItem = () => {
     const [newItem, setNewItem] = useState('')
     const inputRef = useRef();
+    const { items, setItems, setIsLoading, setApiError } = useContext(ItemContext);
 
     const addItem = async (item) => {
         const id = items.length ? items[items.length - 1].id + 1 : 1;

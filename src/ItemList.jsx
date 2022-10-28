@@ -1,7 +1,7 @@
 import React from 'react'
 import LineItem from './LineItem';
 
-const ItemList = ({ items, setItems, setIsLoading, setApiError, handleDelete }) => {
+const ItemList = ({ items }) => {
     return (
         items.length ? (
             <ul>
@@ -9,11 +9,6 @@ const ItemList = ({ items, setItems, setIsLoading, setApiError, handleDelete }) 
                     <LineItem
                         key={item.id}
                         item={item}
-                        items={items}
-                        setItems={setItems}
-                        setIsLoading={setIsLoading}
-                        setApiError={setApiError}
-                        handleDelete={handleDelete}
                     />
                 ))}
             </ul>

@@ -1,12 +1,14 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import ItemList from './ItemList';
 import apiClient from './api/apiClient';
+import ItemContext from './context/DataProvider'
 
-function Home({ items, setItems, isLoading, setIsLoading, apiError, setApiError, handleDelete }) {
+function Home() {
     const [search, setSearch] = useState('')
+    const { items, setItems, isLoading, setIsLoading, apiError, setApiError } = useContext(ItemContext);
 
     useEffect(() => {
         const getItems = async () => {
@@ -27,12 +29,7 @@ function Home({ items, setItems, isLoading, setIsLoading, apiError, setApiError,
 
     return (
         <main>
-            <AddItem
-                items={items}
-                setItems={setItems}
-                setIsLoading={setIsLoading}
-                setApiError={setApiError}
-            />
+            <AddItem />
             <SearchItem
                 search={search}
                 setSearch={setSearch}
@@ -42,10 +39,6 @@ function Home({ items, setItems, isLoading, setIsLoading, apiError, setApiError,
             {!apiError && !isLoading &&
                 <ItemList
                     items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
-                    setItems={setItems}
-                    setIsLoading={setIsLoading}
-                    setApiError={setApiError}
-                    handleDelete={handleDelete}
                 />}
         </main>
     )

@@ -9,7 +9,7 @@ const Layout = ({ length }) => {
             <Header />
             <Nav />
             <Outlet />
-            <Footer length={length} />
+            <Footer />
         </div>
     )
 }

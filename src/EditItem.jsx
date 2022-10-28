@@ -1,13 +1,16 @@
 import React from 'react'
+import { useContext } from "react";
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
+import ItemContext from './context/DataProvider'
 
-const EditItem = ({ handleDelete }) => {
+const EditItem = () => {
     const { id } = useParams();
     const item = useLocation().state?.item
     const navigate = useNavigate()
+    const { deleteItem } = useContext(ItemContext);
 
-    const handleLocalDelete = (id) => {
-        handleDelete(id)
+    const handleDelete = (id) => {
+        deleteItem(id)
         navigate('/')
     }
 
@@ -17,7 +20,7 @@ const EditItem = ({ handleDelete }) => {
                 <>
                     <h2>{`Item# ${id}`}</h2>
                     <h3>{item.item}</h3>
-                    <button onClick={() => handleLocalDelete(item.id)}>Delete Item</button>
+                    <button onClick={() => handleDelete(item.id)}>Delete Item</button>
                 </>
             }
             {!item &&

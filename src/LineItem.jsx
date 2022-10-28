@@ -1,10 +1,13 @@
 import React from 'react'
+import { useContext } from "react";
 import { Link } from 'react-router-dom'
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPen } from 'react-icons/fa';
 import apiClient from './api/apiClient';
+import ItemContext from './context/DataProvider'
 
-const LineItem = ({ item, items, setItems, setIsLoading, setApiError, handleDelete }) => {
+const LineItem = ({ item }) => {
+    const { items, setItems, setIsLoading, setApiError, deleteItem } = useContext(ItemContext);
 
     const handleCheck = async (id) => {
         const listItems = items.map((item) => {
@@ -42,7 +45,7 @@ const LineItem = ({ item, items, setItems, setIsLoading, setApiError, handleDele
                 <FaPen />
             </Link>
             <FaTrashAlt
-                onClick={() => handleDelete(item.id)}
+                onClick={() => deleteItem(item.id)}
                 role="button"
                 tabIndex="0"
             />
