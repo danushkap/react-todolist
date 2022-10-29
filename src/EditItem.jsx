@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
+import { useStoreActions } from 'easy-peasy';
 
 const EditItem = () => {
     const { id } = useParams();
     const item = useLocation().state?.item
     const navigate = useNavigate()
+    const deleteItem = useStoreActions((actions) => actions.items.deleteItem);
 
     const handleDelete = (id) => {
         deleteItem(id)
